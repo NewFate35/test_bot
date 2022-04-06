@@ -4,12 +4,13 @@ from aiogram.types import ReplyKeyboardRemove, CallbackQuery
 
 from keyboards.inline import subscribed, unsubscribed
 from loader import dp, db, bot
+from data import config
 
 
 @dp.message_handler(Command("status"))
 async def subscribe_status(message: types.Message):
     user_id = message.from_user.id
-    group_member = await bot.get_chat_member(-767464873, user_id)
+    group_member = await bot.get_chat_member(config.GROUP_CHAT_ID, user_id)
     if group_member["status"] != "left":
         user = await db.select_user(message.from_user.id)
         if user['status']:
@@ -24,7 +25,7 @@ async def subscribe_status(message: types.Message):
 @dp.callback_query_handler()
 async def subscription_action(call: CallbackQuery):
     user_id = call.from_user.id
-    group_member = await bot.get_chat_member(-767464873, user_id)
+    group_member = await bot.get_chat_member(config.GROUP_CHAT_ID, user_id)
     if call.data == "subscribe" and group_member["status"] != "left":
         await db.update_user_status(True, user_id)
         await call.message.answer(f"Вы успешно подписались на рассылку, поздравляем!")

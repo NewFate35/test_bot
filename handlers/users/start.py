@@ -2,6 +2,8 @@ from aiogram import types
 from aiogram.dispatcher.filters.builtin import CommandStart
 
 import asyncpg.exceptions
+
+from data import config
 from loader import dp, bot, db
 from utils.misc import rate_limit
 
@@ -10,7 +12,7 @@ from utils.misc import rate_limit
 @dp.message_handler(CommandStart())
 async def bot_start(message: types.Message):
     user_id = message.from_user.id
-    group_member = await bot.get_chat_member(-767464873, user_id)
+    group_member = await bot.get_chat_member(config.GROUP_CHAT_ID, user_id)
     if group_member["status"] != "left":
         try:
             user = await db.add_user(full_name=message.from_user.full_name, username=message.from_user.username,

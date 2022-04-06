@@ -10,3 +10,5 @@ DB_USER = env.str('DB_USER')
 DB_PASSWORD = env.str('DB_PASSWORD')
 DB_NAME = env.str('DB_NAME')
 DB_HOST = env.str('DB_HOST')
+
+GROUP_CHAT_ID = env.str('GROUP_CHAT_ID')

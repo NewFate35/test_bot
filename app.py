@@ -1,15 +1,12 @@
-import asyncio
 import random
 
-from aiogram import executor, Dispatcher
+import pandas as pd
+from aiogram import executor
 
 from loader import dp, db, scheduler
 import middlewares, filters, handlers
 from utils.notify_admins import on_startup_notify
 from utils.set_bot_commands import set_default_commands
-
-
-import pandas as pd
 
 wishes = pd.read_excel(r'C:\Users\demse\Desktop\Добрые пожелания.xlsx', sheet_name='Лист1').values
 
